@@ -20,15 +20,19 @@ from sklearn.metrics import roc_auc_score
 from sklearn.utils import shuffle
 import sys
 import math
-import cPickle
-
+import pickle as cPickle
+import pandas as pd
 
 from TLSTM import TLSTM
 
 def load_pkl(path):
+    '''
     with open(path) as f:
         obj = cPickle.load(f)
         return obj
+    '''
+    obj = pd.read_pickle(path)
+    return obj
 
 def convert_one_hot(label_list):
     for i in range(len(label_list)):
@@ -117,15 +121,18 @@ def training(path,learning_rate,training_epochs,train_dropout_prob,hidden_dim,fc
 
 def testing(path,hidden_dim,fc_dim,key,model_path):
     path_string = path + '/data_test.pkl'
+    print(path_string)
     data_test_batches = load_pkl(path_string)
 
     path_string = path + '/elapsed_test.pkl'
+    print(path_string)
     elapsed_test_batches = load_pkl(path_string)
 
     path_string = path + '/label_test.pkl'
     labels_test_batches = load_pkl(path_string)
 
     path_string = path + '/hidden_ind_test.pkl'
+
 
     number_test_batches = len(data_test_batches)
 
@@ -196,4 +203,3 @@ def main(argv):
 
 if __name__ == "__main__":
    main(sys.argv[1:])
-
