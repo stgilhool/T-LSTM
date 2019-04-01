@@ -94,7 +94,16 @@ with tf.Session() as sess:
 kmeans = KMeans(n_clusters=4, random_state=0, init='k-means++').fit(data_reps)
 centroid_values = kmeans.cluster_centers_
 
+print(assign_truth)
+print(type(assign_truth))
+
+
 plt.figure(1)
+assign_truth = np.array(assign_truth)
+assign_truth = assign_truth.transpose()[0]
+print(assign_truth)
+print(type(assign_truth))
+
 plt.scatter(data_reps[:, 0], data_reps[:, 1], c=assign_truth, s=50, alpha=0.5)
 plt.plot(centroid_values[:, 0], centroid_values[:, 1], 'kx', markersize=35)
 plt.title('TLSTM')
